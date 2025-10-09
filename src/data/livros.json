@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "titulo": "Clean Code",
+    "autor": "Robert C. Martin",
+    "categoria": "Programação",
+    "ano": 2008
+  },
+  {
+    "id": 2,
+    "titulo": "O Programador Pragmático",
+    "autor": "Andrew Hunt",
+    "categoria": "Programação",
+    "ano": 1998
+  },
+  {
+    "id": 3,
+    "titulo": "Refatoração",
+    "autor": "Martin Fowler",
+    "categoria": "Programação",
+    "ano": 1999
+  }
+]
