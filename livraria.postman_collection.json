@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "174e8689-e92d-4ae5-9c79-5fda3f5865a2",
+		"name": "livraria",
+		"description": "Lista de Rotas utilizando API da Livraria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49225236"
+	},
+	"item": [
+		{
+			"name": "Teste Escuta API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						""
+					]
+				},
+				"description": "Get para testar se a api esta respondendo na porta 3000"
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Livros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/livros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"livros"
+					]
+				},
+				"description": "Get para listar todos os livros da base"
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Livro por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/livros/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"livros",
+						"3"
+					]
+				},
+				"description": "Get para fazer a busca por um livro informando seu ID de cadastro."
+			},
+			"response": []
+		},
+		{
+			"name": "Novo Livro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Livro Novo PODMAN\",\r\n    \"autor\": \"Eu\",\r\n    \"categoria\": \"Programação\",\r\n    \"ano\": 2024\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/livros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"livros"
+					]
+				},
+				"description": "POST para fazer o cadastro de um novo livro."
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Livro",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Livro Novo Novo PODMAN\",\r\n    \"autor\": \"Eu\",\r\n    \"categoria\": \"Programação\",\r\n    \"ano\": 2024\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/livros/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"livros",
+						"4"
+					]
+				},
+				"description": "PUT para fazer a atualização dos dados de um livro. Informando na url o ID do livro que deseja atualizar dados."
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta Livro",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/livros/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"livros",
+						"4"
+					]
+				},
+				"description": "DELETE para deletar um livro da base. Informando seu ID na url"
+			},
+			"response": []
+		}
+	]
+}
