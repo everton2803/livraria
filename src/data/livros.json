@@ -4,6 +4,8 @@
     "titulo": "Clean Code",
     "autor": "Robert C. Martin",
     "categoria": "Programação",
+    "numeropaginas": 123,
+    "editora": "bla",
     "ano": 2008
   },
   {
@@ -11,6 +13,8 @@
     "titulo": "O Programador Pragmático",
     "autor": "Andrew Hunt",
     "categoria": "Programação",
+    "numeropaginas": 123,
+    "editora": "blabla",
     "ano": 1998
   },
   {
@@ -18,6 +22,17 @@
     "titulo": "Refatoração",
     "autor": "Martin Fowler",
     "categoria": "Programação",
+    "numeropaginas": 123,
+    "editora": "blablabla",
     "ano": 1999
+  },
+  {
+    "id": 4,
+    "titulo": "Livro Novo",
+    "autor": "Eu Bla",
+    "categoria": "Qualquer coisa",
+    "numeropaginas": 25,
+    "editora": "blu",
+    "ano": 2022
   }
 ]

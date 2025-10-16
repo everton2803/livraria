@@ -16,11 +16,13 @@ class LivrosController {
         res.status(200).json(livro);
     }
     async criarLivro(req, res, next) {
-        const { titulo, autor, categoria, ano } = req.body;
+        const { titulo, autor, categoria, numeropaginas, editora, ano } = req.body;
         const novoLivro = await this.repository.create({
             titulo,
             autor,
             categoria,
+            numeropaginas: parseInt(numeropaginas),
+            editora,
             ano: parseInt(ano)
         });
         res.status(201).json({
