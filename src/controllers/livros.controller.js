@@ -1,4 +1,5 @@
 const LivrosRepository = require("../repositories/livros.repository");
+
 class LivrosController {
     constructor() {
         this.repository = new LivrosRepository();
@@ -16,14 +17,14 @@ class LivrosController {
         res.status(200).json(livro);
     }
     async criarLivro(req, res, next) {
-        const { titulo, autor, categoria, numeropaginas, editora, ano } = req.body;
+        const { titulo, autor, categoria, ano, numeropaginas, editora } = req.body;
         const novoLivro = await this.repository.create({
             titulo,
             autor,
             categoria,
+            ano: parseInt(ano),
             numeropaginas: parseInt(numeropaginas),
-            editora,
-            ano: parseInt(ano)
+            editora
         });
         res.status(201).json({
             mensagem: "Livro criado com sucesso",

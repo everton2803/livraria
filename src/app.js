@@ -6,6 +6,9 @@ const routes = require("./routes");
 // Configura o middleware de tratamento de erros
 const errorHandler = require("./middleware/errorHandler");
 
+const db = require("./database/sqlite");
+db.init(); // garante que a tabela exista antes das rotas
+
 // Configura as rotas com prefixo /api
 app.use("/api", routes);
 
