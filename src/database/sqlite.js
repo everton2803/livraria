@@ -20,14 +20,22 @@ function all(sql, params = []) { return getDb().prepare(sql).all(...params); }
 
 function init() {
     run(`CREATE TABLE IF NOT EXISTS livros (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    titulo TEXT NOT NULL,
-    autor TEXT NOT NULL,
-    categoria TEXT NOT NULL,
-    ano INTEGER NOT NULL,
-    numeropaginas INTEGER NOT NULL,
-    editora TEXT NOT NULL
-  )`);
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        titulo TEXT NOT NULL,
+        autor TEXT NOT NULL,
+        categoria TEXT NOT NULL,
+        ano INTEGER NOT NULL,
+        numeropaginas INTEGER NOT NULL,
+        editora TEXT NOT NULL
+    )`);
+    run(`CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        password_hash TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE
+    )`);
     console.log('Banco de dados SQLite inicializado');
 }
 
