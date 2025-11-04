@@ -12,14 +12,14 @@ class AuthController {
             if (!username || !password || !email || !name) {
                 return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios.' });
             }
-            if (this.usersRepo.findByUsername(username)) {
+            if (await this.usersRepo.findByUsername(username)) {
                 return res.status(409).json({ erro: 'Usuário já existe.' });
             }
-            if (this.usersRepo.findByEmail(email)) {
+            if (await this.usersRepo.findByEmail(email)) {
                 return res.status(409).json({ erro: 'Email já cadastrado.' });
             }
             const hash = await bcrypt.hash(password, 10);
-            const user = this.usersRepo.create({ username, password: hash, name, email });
+            const user = await this.usersRepo.create({ username, password: hash, name, email });
             req.session.userId = user.id;
             res.status(201).json({ mensagem: 'Usuário registrado com sucesso!', user: user.toJSON() });
         }
@@ -31,11 +31,11 @@ class AuthController {
     async login(req, res, next) {
         try {
             const { username, password } = req.body;
-            const user = this.usersRepo.findByUsername(username);
+            const user = await this.usersRepo.findByUsername(username);
             if (!user) {
                 return res.status(401).json({ erro: 'Usuário ou senha inválidos.' });
             }
-            const valid = await bcrypt.compare(password, user.password);
+            const valid = await bcrypt.compare(password, user.password_hash);
             if (!valid) {
                 return res.status(401).json({ erro: 'Usuário ou senha inválidos.' });
             }
@@ -52,7 +52,7 @@ class AuthController {
             if (!req.session.userId) {
                 return res.status(401).json({ erro: 'Não autenticado.' });
             }
-            const user = this.usersRepo.findById(req.session.userId);
+            const user = await this.usersRepo.findById(req.session.userId);
             if (!user) {
                 return res.status(404).json({ erro: 'Usuário não encontrado.' });
             }
@@ -69,6 +69,5 @@ class AuthController {
         });
     }
 }
-
 
 module.exports = AuthController;
