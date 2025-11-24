@@ -5,10 +5,10 @@ const LivrosController = require("../controllers/livros.controller");
 const livrosController = new LivrosController();
 // Middlewares
 const { validarLivro, validarParamId } = require("../middleware/validar/livros.validar");
-const { requireAuth } = require("../middleware/auth");
+//const { requireAuth } = require("../middleware/auth");
 
 // exige autenticação para todas as rotas deste router
-router.use(requireAuth);
+//router.use(requireAuth);
 
 router.get("/", livrosController.listarLivros.bind(livrosController));
 router.get("/:id", validarParamId, livrosController.buscarLivroPorId.bind(livrosController));
