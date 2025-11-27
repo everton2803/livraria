@@ -1,26 +1,18 @@
+// frontend/src/contexts/AuthContext.jsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authService } from '../services/authService';
 
-/*
-  O AuthContext será responsável por:
-  - Guardar informações do usuário
-  - Verificar se existe um token válido
-  - Fazer login e logout
-  - Cadastrar usuários
-  - Evitar que páginas privadas carreguem sem autenticação
-*/
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // usado para verificar sessão no carregamento
+  const [loading, setLoading] = useState(true);
 
-  // Executa uma vez ao carregar a aplicação
+  // Verifica autenticação ao montar o contexto (executado uma vez)
   useEffect(() => {
     checkAuth();
   }, []);
 
-  // Verifica se existe sessão ativa
   const checkAuth = async () => {
     try {
       const userData = await authService.getMe();
@@ -32,20 +24,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Login -> armazena usuário retornado
   const login = async (credentials) => {
     const data = await authService.login(credentials);
     setUser(data.user);
     return data;
   };
 
-  // Registro -> apenas retorna resultado
   const register = async (userData) => {
     const data = await authService.register(userData);
     return data;
   };
 
-  // Logout -> limpa sessão
   const logout = async () => {
     try {
       await authService.logout();
@@ -61,7 +50,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook para acessar facilmente o AuthContext
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

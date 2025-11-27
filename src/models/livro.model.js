@@ -8,24 +8,10 @@ class Livro {
         this.ano = Number.isInteger(ano) ? ano : parseInt(ano, 10);
         this.numeropaginas = Number.isInteger(numeropaginas) ? numeropaginas : parseInt(numeropaginas, 10);
         this.editora = String(editora).trim();
+
         this._validar();
     }
-    _validar() {
-        const erros = [];
-        if (!this.titulo || this.titulo.trim().length === 0) erros.push('Título é obrigatório');
-        if (!this.autor || this.autor.trim().length === 0) erros.push('Autor é obrigatório');
-        if (!this.categoria || this.categoria.trim().length === 0) erros.push('Categoria é obrigatória');
-        if (!Number.isInteger(this.ano) || isNaN(this.ano)) erros.push('Ano deve ser um número válido');
-        if (!Number.isInteger(this.numeropaginas) || isNaN(this.numeropaginas)) erros.push('Numero de paginas deve ser um número válido');
-        if (!this.editora || this.editora.trim().length === 0) erros.push('Editora é obrigatória');
-        if (erros.length > 0) {
-            const error = new Error('Dados inválidos');
-            error.statusCode = 400;
-            error.details = erros;
-            throw error;
-        }
-    }
-    // ...
+
     static fromJSON(json) {
         return new Livro({
             id: json.id ?? null,
@@ -34,9 +20,10 @@ class Livro {
             categoria: json.categoria,
             ano: json.ano,
             numeropaginas: json.numeropaginas,
-            editora: json.editora,
+            editora: json.editora
         });
     }
+
     toJSON() {
         return {
             id: this.id,
@@ -45,8 +32,27 @@ class Livro {
             categoria: this.categoria,
             ano: this.ano,
             numeropaginas: this.numeropaginas,
-            editora: this.editora,
+            editora: this.editora
         };
     }
+
+    _validar() {
+        const erros = [];
+
+        if (!this.titulo || this.titulo.trim().length === 0) erros.push("Título é obrigatório");
+        if (!this.autor || this.autor.trim().length === 0) erros.push("Autor é obrigatório");
+        if (!this.categoria || this.categoria.trim().length === 0) erros.push("Categoria é obrigatória");
+        if (!Number.isInteger(this.ano) || isNaN(this.ano)) erros.push("Ano deve ser um número válido");
+        if (!Number.isInteger(this.numeropaginas) || isNaN(this.numeropaginas)) erros.push("Número de páginas deve ser um número válido");
+        if (!this.editora || this.editora.trim().length === 0) erros.push("Editora é obrigatória");
+
+        if (erros.length > 0) {
+            const error = new Error("Dados inválidos");
+            error.statusCode = 400;
+            error.details = erros;
+            throw error;
+        }
+    }
 }
+
 module.exports = Livro;

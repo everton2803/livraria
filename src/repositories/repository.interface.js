@@ -1,15 +1,33 @@
+// src/repositories/repository.interface.js
 class RepositoryBase {
+
     constructor() {
         if (this.constructor === RepositoryBase) {
             throw new Error("Não é possível instanciar uma classe abstrata");
         }
+        // Caminho do arquivo JSON (deve ser definido na subclasse)
         this.caminhoArquivo = null;
     }
-    async findAll() { throw new Error("Método deve ser implementado"); }
-    async findById(id) { throw new Error("Método deve ser implementado"); }
-    async create(data) { throw new Error("Método deve ser implementado"); }
-    async update(id, data) { throw new Error("Método deve ser implementado"); }
-    async delete(id) { throw new Error("Método deve ser implementado"); }
+
+    async findAll() {
+        throw new Error("Método deve ser implementado");
+    }
+
+    async findById(id) {
+        throw new Error("Método deve ser implementado");
+    }
+
+    async create(data) {
+        throw new Error("Método deve ser implementado");
+    }
+
+    async update(id, data) {
+        throw new Error("Método deve ser implementado");
+    }
+
+    async delete(id) {
+        throw new Error("Método deve ser implementado");
+    }
 
     async getNextId() {
         const items = await this.findAll();
@@ -17,4 +35,5 @@ class RepositoryBase {
         return Math.max(...items.map(item => item.id)) + 1;
     }
 }
+
 module.exports = RepositoryBase;
