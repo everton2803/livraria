@@ -34,7 +34,7 @@ class LivrosRepository extends RepositoryBase {
             error.statusCode = 404;
             throw error;
         }
-        const atualizado = new Livro({ ...existente.toJSON(), ...dadosAtualizados });
+        const atualizado = new Livro({ ...existente, ...dadosAtualizados });
         db.run(
             "UPDATE livros SET titulo = ?, autor = ?, categoria = ?, ano = ?, numeropaginas = ?, editora = ? WHERE id = ?",
             [atualizado.titulo, atualizado.autor, atualizado.categoria, atualizado.ano, atualizado.numeropaginas, atualizado.editora, id]

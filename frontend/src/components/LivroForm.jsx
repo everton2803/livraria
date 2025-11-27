@@ -7,6 +7,7 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
     titulo: '',
     autor: '',
     ano: '',
+    numeropagnas: '',
     editora: ''
   });
 
@@ -16,6 +17,7 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
         titulo: livro.titulo || '',
         autor: livro.autor || '',
         ano: livro.ano || '',
+        numeropaginas: livro.numeropaginas || '',
         editora: livro.editora || ''
       });
     }
@@ -70,6 +72,19 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
               onChange={handleChange}
               required
               min="1000"
+              max="9999"
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="numeropaginas">Numero de Paginas</label>
+            <input
+              type="number"
+              id="numeropaginas"
+              name="numeropaginas"
+              value={formData.numeropaginas}
+              onChange={handleChange}
+              min="20"
               max="9999"
             />
           </div>
