@@ -1,8 +1,9 @@
 /* frontend/src/components/Header.css */
 .header {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 4px var(--header-shadow);
   padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .header-content {
@@ -16,7 +17,7 @@
 
 .logo {
   text-decoration: none;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .logo h1 {
@@ -32,13 +33,13 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #007bff;
+  color: var(--link-color);
 }
 
 .user-info {
@@ -48,6 +49,23 @@
 }
 
 .user-info span {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 14px;
+}
+
+/* Botão de tema */
+.btn-theme {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-theme:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--link-color);
 }

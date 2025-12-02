@@ -7,7 +7,8 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
     titulo: '',
     autor: '',
     ano: '',
-    numeropagnas: '',
+    categoria: '',
+    numeropaginas: '',
     editora: ''
   });
 
@@ -17,6 +18,7 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
         titulo: livro.titulo || '',
         autor: livro.autor || '',
         ano: livro.ano || '',
+        categoria: livro.categoria || '',
         numeropaginas: livro.numeropaginas || '',
         editora: livro.editora || ''
       });
@@ -30,6 +32,11 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Validação mínima no frontend
+    if (!formData.categoria || formData.categoria.trim().length === 0) {
+      alert('Por favor selecione uma categoria');
+      return;
+    }
     onSubmit(formData);
   };
 
@@ -74,6 +81,26 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
               min="1000"
               max="9999"
             />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="categoria">Categoria *</label>
+            <select
+              id="categoria"
+              name="categoria"
+              value={formData.categoria}
+              onChange={handleChange}
+              required
+            >
+              <option value="">-- Selecionar categoria --</option>
+              <option value="Ficcao">Ficção</option>
+              <option value="Nao-ficcao">Não-ficção</option>
+              <option value="Tecnico">Técnico</option>
+              <option value="Infantil">Infantil</option>
+              <option value="Romance">Romance</option>
+              <option value="Historia">História</option>
+              <option value="Biografia">Biografia</option>
+            </select>
           </div>
 
           <div className="input-group">

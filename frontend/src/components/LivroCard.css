@@ -1,26 +1,59 @@
 /* frontend/src/components/LivroCard.css */
 .livro-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px var(--card-shadow);
+  border: 1px solid var(--border-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .livro-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px var(--card-shadow);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  gap: 10px;
 }
 
 .livro-card h3 {
-  margin: 0 0 15px 0;
+  margin: 0;
   font-size: 20px;
-  color: #333;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.btn-favorite {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-favorite:hover {
+  transform: scale(1.2);
+}
+
+.btn-favorite:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-favorite.favorited {
+  filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.5));
 }
 
 .livro-card p {
   margin: 8px 0;
-  color: #666;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 

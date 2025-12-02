@@ -3,9 +3,12 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .main-content {
   flex: 1;
   padding: 20px 0;
+  background-color: var(--bg-secondary);
 }

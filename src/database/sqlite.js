@@ -56,7 +56,18 @@ function init() {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     `);
-    console.log('Banco de dados SQLite inicializado (livros, users)');
+    run(`
+        CREATE TABLE IF NOT EXISTS favorites (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            book_id INTEGER NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+            FOREIGN KEY (book_id) REFERENCES livros(id) ON DELETE CASCADE,
+            UNIQUE(user_id, book_id)
+        )
+    `);
+    console.log('Banco de dados SQLite inicializado (livros, users, favorites)');
 }
 
 module.exports = { getDb, run, get, all, query, init };

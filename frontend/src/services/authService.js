@@ -19,6 +19,7 @@ export const authService = {
 
   async getMe() {
     const response = await api.get('/auth/me');
-    return response.data;
+    // controller returns { user: ... }
+    return response.data.user || null;
   }
 };

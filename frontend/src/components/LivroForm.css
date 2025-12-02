@@ -13,18 +13,20 @@
 }
 
 .livro-form-container {
-  background: white;
+  background: var(--card-bg);
   padding: 30px;
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
+  border: 1px solid var(--border-color);
 }
 
 .livro-form-container h2 {
   margin: 0 0 20px 0;
   text-align: center;
+  color: var(--text-primary);
 }
 
 .form-actions {

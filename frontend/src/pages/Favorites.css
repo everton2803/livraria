@@ -1,0 +1,54 @@
+/* frontend/src/pages/Favorites.css */
+.favorites-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.favorites-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.favorites-header h1 {
+  font-size: 32px;
+  margin: 0 0 10px 0;
+  color: var(--text-primary);
+}
+
+.favorites-header .subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.livros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 2px dashed var(--border-color);
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin: 10px 0;
+}
+
+.empty-state a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.empty-state a:hover {
+  text-decoration: underline;
+}

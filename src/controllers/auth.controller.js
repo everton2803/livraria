@@ -38,7 +38,7 @@ class AuthController {
             if (!req.session.userId) return res.status(401).json({ erro: 'Não autenticado' });
             const user = await this.usersRepository.findById(req.session.userId);
             if (!user) return res.status(401).json({ erro: 'Sessão inválida' });
-            res.status(200).json(user);
+            res.status(200).json({ user });
         } catch (err) { next(err); }
     }
 

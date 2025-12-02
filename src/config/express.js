@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true })); // Suporte para dados de formul
 app.use(morgan("common")); // Logging HTTP
 
 app.use(session({
+    name: 'cookie.txt',
     secret: process.env.SESSION_SECRET || "livraria_secret_key",
     resave: false,
     saveUninitialized: false,
