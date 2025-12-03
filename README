@@ -1,0 +1,82 @@
+Resumo das implementações do projeto Livraria
+
+Data: 2025-12-03
+
+Objetivo
+- Implementar modo escuro (frontend), sistema de favoritos (backend + frontend) e reviews (backend + frontend).
+
+Visão geral das mudanças
+
+1) Modo Escuro (Dark Mode)
+- Objetivo: permitir alternar entre tema claro/escuro e manter estilo consistente na UI.
+- Arquivos principais criados/alterados:
+  - `frontend/src/index-theme.css`  -> variáveis CSS para tema claro e dark (prefixo :root e [data-theme="dark"]).
+  - `frontend/src/contexts/ThemeContext.jsx` -> contexto React para controlar e persistir (cookie) a preferência do tema.
+  - `frontend/src/App.jsx` -> envolvimento do app com `ThemeProvider` (adaptado para carregar tema).
+  - Diversos arquivos CSS atualizados para usar variáveis: `index.css`, `App.css`, `Header.css`, `LivroCard.css`, etc.
+  - `frontend/src/components/Header.jsx` -> botão para alternar tema.
+- Comportamento:
+  - O tema é controlado via `ThemeContext` e aplicado como atributo `data-theme` no `document.documentElement`.
+  - As variáveis definidas em `index-theme.css` definem cores de fundo, textos, bordas, inputs, botões etc.
+- Teste rápido:
+  1. Abrir frontend; clicar no toggle no `Header` para alternar tema.
+  2. Verificar mudança suave (transição) e consistência em formulários, cards e header.
+
+2) Favoritos (Favorites)
+- Objetivo: permitir que usuários autenticados marquem livros como favoritos, persistindo no banco.
+- Backend (Node/Express/SQLite):
+  - `src/database/sqlite.js` -> criação da tabela `favorites` (caso ainda não exista).
+  - `src/models/favorite.model.js` -> modelo (estrutura) do Favorite (criado anteriormente durante o fluxo).
+  - `src/repositories/favorites.repository.js` -> repositório com operações: addFavorite, removeFavorite, isFavorite, findByUser, findBooksForUser.
+  - `src/controllers/favoritos.controller.js` -> endpoints que usam sessão para operar favoritos.
+  - `src/routes/favoritos.routes.js` -> rotas registradas em `src/routes/index.js`.
+- Frontend (React):
+  - `frontend/src/services/favoritesService.js` -> chamadas fetch para endpoints de favoritos com `credentials: 'include'`.
+  - `frontend/src/components/LivroCard.jsx` -> botão de favoritar (toggle) integrado, consulta de estado ao montar.
+  - `frontend/src/pages/Favorites.jsx` -> página que lista os livros favoritados.
+- Comportamento:
+  - Usuário autenticado pode adicionar/remover favorito (requisições com cookies de sessão).
+  - Endpoints protegem via sessão (checam `req.session.userId`).
+- Teste rápido:
+  1. Fazer login.
+  2. Em um card de livro, clicar no coração/ícone de favorito.
+  3. Confirmar que o ícone muda e que o livro aparece na página de favoritos.
+
+3) Reviews
+- Objetivo: permitir que usuários autenticados publiquem reviews (nota 1-5 + comentário) por livro; listar e remover próprios reviews.
+- Backend - arquivos criados/alterados:
+  - `src/database/sqlite.js` -> adicionada criação da tabela `reviews` e índice (`idx_reviews_book`).
+  - `src/models/review.model.js` -> modelo `Review` com método `toJSON()`/`fromDB()`.
+  - `src/repositories/reviews.repository.js` -> usa funções auxiliares do `sqlite.js` (`run`, `get`, `all`) e implementa: `create`, `findByBook`, `findByUser`, `findById`, `remove`.
+  - `src/controllers/reviews.controller.js` -> controlador com métodos: `create`, `getByBook`, `getMine`, `remove`. Protegidos por sessão (checa `req.session.userId`).
+  - `src/routes/reviews.routes.js` -> rotas express:
+      - POST `/api/reviews` (criar review)
+      - GET `/api/reviews/livros/:bookId` (listar por livro)
+      - GET `/api/reviews/mine` (listar meus reviews)
+      - DELETE `/api/reviews/:id` (remover próprio review)
+  - `src/routes/index.js` -> registro de `reviews` com `router.use('/reviews', reviewsRoutes)`.
+- Frontend - arquivos criados/alterados:
+  - `frontend/src/services/reviewsService.js` -> service para chamar endpoints (`/api/reviews/...`) usando `credentials: 'include'` e parse robusto de erros.
+  - `frontend/src/components/ReviewsList.jsx` -> componente para listar reviews de um livro.
+  - `frontend/src/components/ReviewForm.jsx` -> formulário para enviar review (nota select 1-5 + textarea comentário). Protege envio verificando `user` do `AuthContext`.
+  - `frontend/src/components/Reviews.css` -> estilos que utilizam as variáveis de tema (compatível com modo escuro).
+  - `frontend/src/components/LivroCard.jsx` -> integrado `ReviewsList` e `ReviewForm` (inline), com mecanismo para recarregar lista após criar um review.
+- Observações e lições aprendidas (correções feitas durante o processo):
+  - O helper `src/database/sqlite.js` expõe funções `run`, `get`, `all` (não `prepare`). Os repositórios do backend devem usar essa API; houve um erro inicial causado por usar `db.prepare(...)` diretamente.
+  - Erros 401 (Unauthorized) durante testes frontend geralmente foram causados por sessão inexistente/expirada ou por problemas de cookie/cors. Foi verificado o cookie `cookie.txt` (nome do cookie de sessão) e ajustes feitos no frontend para mandar `credentials: 'include'`.
+  - `auth.controller.me()` foi uniformizado para retornar `{ user }` para alinhar com `authService.getMe()` no frontend.
+
+Como testar tudo localmente
+- Backend (na raiz do projeto):
+  - `npm run dev` (ou `node server.js`)
+  - Verifique no console se o DB foi inicializado e se as tabelas foram criadas (mensagem de inicialização).
+- Frontend (pasta `frontend`):
+  - `cd frontend`
+  - `npm run dev` (Vite) - frontend disponível em `http://localhost:3000`.
+- Fluxos para verificar:
+  1. Register / Login (rota `/auth/register`, `/auth/login`) e verificar cookie `cookie.txt` em DevTools → Application → Cookies.
+  2. Favoritar: abrir lista de livros, clicar ícone de favorito, verificar lista de favoritos.
+  3. Reviews: abrir `LivroCard`, ver lista de reviews, submeter novo review (nota + comentário), verificar que aparece e persiste após reload, tentar remover seu review.
+
+
+Fim do resumo.
