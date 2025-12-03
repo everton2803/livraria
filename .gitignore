@@ -1,5 +1,0 @@
-.env
-node_modules/
-.vscode/
-src/data/*.db
-frontend/node_modules
