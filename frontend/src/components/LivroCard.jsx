@@ -1,11 +1,14 @@
 // frontend/src/components/LivroCard.jsx
 import React, { useState, useEffect } from 'react';
 import { favoritesService } from '../services/favoritesService';
+import ReviewsList from './ReviewsList';
+import ReviewForm from './ReviewForm';
 import './LivroCard.css';
 
 const LivroCard = ({ livro, onEdit, onDelete, showFavoriteBtn = true, showActionBtns = true }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reviewsRefreshKey, setReviewsRefreshKey] = useState(0);
 
   // Verificar se livro é favorito ao montar
   useEffect(() => {
@@ -73,6 +76,12 @@ const LivroCard = ({ livro, onEdit, onDelete, showFavoriteBtn = true, showAction
           </button>
         </div>
       )}
+
+      <div className="card-reviews">
+        <h4>Reviews</h4>
+        <ReviewsList bookId={livro.id} refreshKey={reviewsRefreshKey} />
+        <ReviewForm bookId={livro.id} onCreated={() => setReviewsRefreshKey(k => k + 1)} />
+      </div>
     </div>
   );
 };

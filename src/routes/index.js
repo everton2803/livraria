@@ -8,6 +8,8 @@ const livrosRoutes = require("./livros.routes");
 const authRoutes = require("./auth.routes");
 // Rotas de favoritos
 const favoritosRoutes = require("./favoritos.routes");
+// Rotas de reviews
+const reviewsRoutes = require("./reviews.routes");
 
 // Rota inicial (explicação do sistema)
 router.get("/", (req, res) => {
@@ -22,6 +24,9 @@ router.use("/livros", livrosRoutes);
 router.use("/auth", authRoutes);
 // Usa as rotas de favoritos
 router.use("/favoritos", favoritosRoutes);
+
+// Usa as rotas de reviews
+router.use('/reviews', reviewsRoutes);
 
 
 module.exports = router;

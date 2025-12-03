@@ -67,6 +67,21 @@ function init() {
             UNIQUE(user_id, book_id)
         )
     `);
+    run(`
+        CREATE TABLE IF NOT EXISTS reviews (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            book_id INTEGER NOT NULL,
+            rating INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 5),
+            comment TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+            FOREIGN KEY (book_id) REFERENCES livros(id) ON DELETE CASCADE
+        )
+    `);
+    run(`
+        CREATE INDEX IF NOT EXISTS idx_reviews_book ON reviews(book_id);
+    `);
     console.log('Banco de dados SQLite inicializado (livros, users, favorites)');
 }
 
